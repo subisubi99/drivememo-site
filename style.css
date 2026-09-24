@@ -1,0 +1,105 @@
+:root {
+  --bg: #ffffff;
+  --text: #222222;
+  --muted: #666666;
+  --line: #e2e2e2;
+  --head: #f4f4f4;
+  --link: #1a5fb4;
+  --accent: #2b7a3d;
+  --accent-text: #ffffff;
+  --box: #f7f7f7;
+  --note: #fff8e1;
+  --note-line: #f0d98c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1c;
+    --text: #e4e4e4;
+    --muted: #a0a0a0;
+    --line: #363636;
+    --head: #252525;
+    --link: #7fb2f0;
+    --accent: #3f9a55;
+    --accent-text: #ffffff;
+    --box: #262626;
+    --note: #2c2819;
+    --note-line: #5a4d20;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.7 "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+code { font-family: Consolas, monospace; font-size: 0.92em; background: var(--box); padding: 1px 4px; border-radius: 3px; }
+
+/* 언어 전환: html에 en 클래스가 있으면 영어, 없으면 한국어 */
+html.en .ko { display: none !important; }
+html:not(.en) .en { display: none !important; }
+
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+
+/* 머리 */
+header { background: var(--head); border-bottom: 1px solid var(--line); }
+.top { display: flex; align-items: center; justify-content: space-between; padding-top: 22px; }
+.logo { display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 26px; font-weight: bold; }
+.logo:hover { text-decoration: none; }
+.logo img { width: 32px; height: 32px; }
+.lang {
+  font: inherit; font-size: 13px; color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 4px; padding: 4px 10px; cursor: pointer;
+}
+.lang:hover { border-color: var(--muted); }
+nav { display: flex; flex-wrap: wrap; gap: 0 2px; margin-top: 14px; }
+nav a { color: var(--text); padding: 8px 12px; border-bottom: 3px solid transparent; font-size: 14px; }
+nav a:hover { text-decoration: none; border-bottom-color: var(--line); }
+nav a.on { border-bottom-color: var(--accent); font-weight: bold; }
+
+/* 본문 */
+main { padding: 28px 16px 40px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 19px; margin: 36px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 16px; margin: 22px 0 6px; }
+.sub { color: var(--muted); margin: 0 0 20px; }
+ul, ol { padding-left: 22px; }
+li { margin: 3px 0; }
+
+.intro { display: grid; grid-template-columns: 1fr 260px; gap: 24px; align-items: start; }
+.intro img { border: 1px solid var(--line); display: block; }
+.intro ul { margin: 0; }
+@media (max-width: 720px) { .intro { grid-template-columns: 1fr; } }
+
+.dl { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.btn {
+  display: inline-block; min-width: 220px; text-align: center; padding: 11px 18px;
+  background: var(--box); color: var(--text); border: 1px solid var(--line); border-radius: 4px;
+}
+.btn:hover { text-decoration: none; border-color: var(--muted); }
+.btn.main { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: bold; }
+.btn.off { color: var(--muted); cursor: default; }
+.btn small { display: block; font-weight: normal; font-size: 12px; opacity: 0.85; }
+@media (max-width: 520px) { .btn { width: 100%; } }
+
+.note { background: var(--note); border: 1px solid var(--note-line); border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
+.box { background: var(--box); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
+
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+th { width: 34%; font-weight: normal; color: var(--muted); }
+.hash { font-family: Consolas, monospace; font-size: 12px; word-break: break-all; }
+
+.faq h3 { margin-top: 26px; }
+.faq p { margin: 4px 0 0; }
+
+.log h3 { margin-top: 20px; }
+.log ul { margin: 4px 0; }
+
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 18px 0 30px; }
+footer a { color: var(--muted); }
