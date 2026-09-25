@@ -87,6 +87,53 @@ var DM = (function () {
         els = document.querySelectorAll('[data-sha]');
         for (i = 0; i < els.length; i++) els[i].textContent = sha.trim();
       }
+      releases(ver);
+    })['catch'](function () {});
+  }
+
+  // 개발자 본인 기기: 한 번 ?me=1 로 열어 두면 다운로드 버튼이 세지 않는 주소(raw)를 그대로 씀. ?me=0 으로 해제
+  function isMe() {
+    var m = /[?&]me=([01])\b/.exec(location.search);
+    try {
+      if (m) { if (m[1] === '1') localStorage.setItem('me', '1'); else localStorage.removeItem('me'); }
+      return localStorage.getItem('me') === '1';
+    } catch (e) { return false; }
+  }
+
+  // GitHub Releases: 다운로드 버튼을 릴리스 파일로 바꾸고(횟수가 세어짐), 모든 릴리스의 다운로드 횟수 합을 [data-count]에 표시.
+  // 이 버전의 릴리스가 없거나 못 읽으면 raw 주소 그대로 (횟수 표시 없음)
+  function releases(ver) {
+    var me = isMe();
+    fetch('https://api.github.com/repos/subisubi99/DriveMemo-releases/releases?per_page=100').then(function (r) {
+      if (!r.ok) throw 0;
+      return r.json();
+    }).then(function (list) {
+      var total = 0, zip = null, exe = null, i, j;
+      for (i = 0; i < list.length; i++) {
+        var a = list[i].assets || [];
+        for (j = 0; j < a.length; j++) {
+          total += a[j].download_count || 0;
+          if (list[i].tag_name === 'v' + ver) {
+            if (a[j].name === 'DriveMemo-' + ver + '.zip') zip = a[j].browser_download_url;
+            else if (a[j].name === 'DriveMemo.exe') exe = a[j].browser_download_url;
+          }
+        }
+      }
+      if (!me) {
+        var els = document.querySelectorAll('[data-zip]');
+        if (zip) for (i = 0; i < els.length; i++) els[i].href = zip;
+        els = document.querySelectorAll('[data-exe]');
+        if (exe) for (i = 0; i < els.length; i++) els[i].href = exe;
+      }
+      if (total > 0 || me) {
+        var n = total.toLocaleString();
+        var els2 = document.querySelectorAll('[data-count]');
+        for (i = 0; i < els2.length; i++) {
+          els2[i].innerHTML = t('지금까지 ' + n + '번 다운로드되었습니다', 'Downloaded ' + n + ' times so far') +
+            (me ? ' ' + t('(이 기기에서 받는 건 세지 않음)', '(downloads from this device are not counted)') : '');
+          els2[i].hidden = false;
+        }
+      }
     })['catch'](function () {});
   }
 
