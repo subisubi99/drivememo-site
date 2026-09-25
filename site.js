@@ -108,11 +108,13 @@ var DM = (function () {
       if (!r.ok) throw 0;
       return r.json();
     }).then(function (list) {
-      var total = 0, zip = null, exe = null, i, j;
+      // 새로 받기 = zip + DriveMemo.exe, 업데이트 = DriveMemo-update.exe (프로그램 안 업데이트)
+      var total = 0, updates = 0, zip = null, exe = null, i, j;
       for (i = 0; i < list.length; i++) {
         var a = list[i].assets || [];
         for (j = 0; j < a.length; j++) {
-          total += a[j].download_count || 0;
+          if (a[j].name === 'DriveMemo-update.exe') updates += a[j].download_count || 0;
+          else total += a[j].download_count || 0;
           if (list[i].tag_name === 'v' + ver) {
             if (a[j].name === 'DriveMemo-' + ver + '.zip') zip = a[j].browser_download_url;
             else if (a[j].name === 'DriveMemo.exe') exe = a[j].browser_download_url;
@@ -129,7 +131,9 @@ var DM = (function () {
         var n = total.toLocaleString();
         var els2 = document.querySelectorAll('[data-count]');
         for (i = 0; i < els2.length; i++) {
-          els2[i].innerHTML = t('지금까지 ' + n + '번 다운로드되었습니다', 'Downloaded ' + n + ' times so far') +
+          var u = updates.toLocaleString();
+          els2[i].innerHTML = t('지금까지 ' + n + '번 다운로드되었습니다' + (updates > 0 ? ' · 업데이트 ' + u + '번' : ''),
+                                'Downloaded ' + n + ' times so far' + (updates > 0 ? ' · updated ' + u + ' times' : '')) +
             (me ? ' ' + t('(이 기기에서 받는 건 세지 않음)', '(downloads from this device are not counted)') : '');
           els2[i].hidden = false;
         }
