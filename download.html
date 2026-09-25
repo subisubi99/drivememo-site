@@ -67,8 +67,25 @@
   <table>
     <tr><th><span class="ko">버전</span><span class="en">Version</span></th><td data-ver>0.9.53</td></tr>
     <tr><th>DriveMemo.exe SHA-256</th><td class="hash" data-sha>387838f04fc47f1ad75cb599dad0f3605a4b795405310a1f0a13c05b8dbac30c</td></tr>
-    <tr><th><span class="ko">지난 버전</span><span class="en">Older versions</span></th><td><a href="https://github.com/subisubi99/DriveMemo-releases">GitHub (DriveMemo-releases)</a></td></tr>
   </table>
+
+  <h2><span class="ko">지난 버전</span><span class="en">Older versions</span></h2>
+  <p class="ko">새 버전에 문제가 있으면 지난 버전으로 돌아갈 수 있습니다. 메모와 설정은 그대로 유지됩니다.</p>
+  <p class="en">If a new version causes trouble, you can go back to an older one. Your notes and settings are kept.</p>
+  <ul class="ko">
+    <li>바로 전 버전: DriveMemo 안에서 <b>도움말 → 이전 버전으로 되돌리기</b> (업데이트할 때 바로 전 버전을 보관해 둡니다. 0.9.56부터)</li>
+    <li>그보다 전 버전: 아래에서 받아 압축을 풀고, DriveMemo를 끈 뒤 <code>DriveMemo.exe</code>를 덮어쓰세요.
+      다시 켜면 새 버전 알림이 뜨는데, <b>이 버전 건너뛰기</b>를 누르면 더 새 버전이 나올 때까지 묻지 않습니다.</li>
+  </ul>
+  <ul class="en">
+    <li>The previous version: in DriveMemo, <b>도움말 (Help) → 이전 버전으로 되돌리기 (Roll back)</b>. The previous version is kept when updating (from 0.9.56).</li>
+    <li>Older versions: download below, extract, close DriveMemo and replace <code>DriveMemo.exe</code>.
+      When the update notice appears, choose <b>이 버전 건너뛰기 (Skip this version)</b>.</li>
+  </ul>
+  <ul id="old">
+    <li><a href="https://github.com/subisubi99/DriveMemo-releases">GitHub (DriveMemo-releases)</a></li>
+  </ul>
+  <p class="sub"><a href="https://github.com/subisubi99/DriveMemo-releases"><span class="ko">더 오래된 버전 (GitHub)</span><span class="en">Even older versions (GitHub)</span></a></p>
 
   <div class="note ko">
     백신 프로그램이 DriveMemo.exe를 막으면, 서명 없는 개인 제작 프로그램이라 생기는 오탐일 수 있습니다. 백신의 예외 목록에 추가하세요.
@@ -85,6 +102,6 @@
 </main>
 
 <footer><script>DM.footer()</script></footer>
-<script>DM.latest(); DM.changelog('log')</script>
+<script>DM.latest(); DM.changelog('log'); DM.oldVersions('old', 5)</script>
 </body>
 </html>

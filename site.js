@@ -137,6 +137,26 @@ var DM = (function () {
     })['catch'](function () {});
   }
 
+  // 지난 버전 받기: CHANGELOG.md 의 버전 목록에서 최신을 뺀 최근 n개를 zip 링크로 (#id 안의 ul 을 채움)
+  // zip 은 DriveMemo-releases 저장소에 버전마다 남아 있음
+  function oldVersions(id, n) {
+    var box = document.getElementById(id);
+    if (!box) return;
+    fetch(RAW + 'CHANGELOG.md', { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw 0;
+      return r.text();
+    }).then(function (md) {
+      var re = /^## (\S+) \(([^)]+)\)/gm, m, vers = [];
+      while ((m = re.exec(md))) vers.push([m[1], m[2]]);
+      var out = '';
+      for (var i = 1; i < vers.length && i <= n; i++) {
+        var v = esc(vers[i][0]);
+        out += '<li><a href="' + REPO + '/raw/main/DriveMemo-' + v + '.zip">DriveMemo ' + v + '</a> <small>(' + esc(vers[i][1]) + ')</small></li>';
+      }
+      if (out) box.innerHTML = out;
+    })['catch'](function () {});
+  }
+
   // CHANGELOG.md 의 '## 버전 (날짜)' 와 '- 항목' 만 옮겨 보여 줌
   function changelog(id) {
     var box = document.getElementById(id);
@@ -160,5 +180,5 @@ var DM = (function () {
     })['catch'](function () {});
   }
 
-  return { header: header, footer: footer, toggle: toggle, latest: latest, changelog: changelog };
+  return { header: header, footer: footer, toggle: toggle, latest: latest, changelog: changelog, oldVersions: oldVersions };
 })();
