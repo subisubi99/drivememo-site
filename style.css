@@ -87,6 +87,15 @@ li { margin: 3px 0; }
 .btn small { display: block; font-weight: normal; font-size: 12px; opacity: 0.85; }
 @media (max-width: 520px) { .btn { width: 100%; } }
 
+/* 카카오페이 송금 링크는 PC 브라우저에서 404 → PC(마우스)에서는 버튼 대신 QR */
+.pay-qr { display: none; align-items: center; gap: 16px; }
+.pay-qr img { width: 150px; height: 150px; border: 1px solid var(--line); border-radius: 4px; }
+.pay-qr p { margin: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .pay-link { display: none; }
+  .pay-qr { display: flex; }
+}
+
 .note { background: var(--note); border: 1px solid var(--note-line); border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
 .box { background: var(--box); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
 
