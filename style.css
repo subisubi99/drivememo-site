@@ -72,7 +72,8 @@ ul, ol { padding-left: 22px; }
 li { margin: 3px 0; }
 
 .intro { display: grid; grid-template-columns: 1fr 260px; gap: 24px; align-items: start; }
-.intro img { border: 1px solid var(--line); display: block; }
+.intro img, .intro video { border: 1px solid var(--line); display: block; }
+.intro video { width: 100%; height: auto; }
 .intro ul { margin: 0; }
 @media (max-width: 720px) { .intro { grid-template-columns: 1fr; } }
 
